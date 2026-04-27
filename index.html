@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Asep Ridwan Taufiq — Fiqih Muamalah</title>
+  <link rel="icon" href="./logo.jpg" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #F2FAFA; --bg2: #E4F4F5; --text: #062028; --text2: #3D6870;
+      --accent: #0A7A8A; --gold: #0D9EAE; --border: rgba(6,32,40,0.12);
+      --card: #FFFFFF; --nav-bg: rgba(242,250,250,0.92);
+    }
+    .dark {
+      --bg: #060F12; --bg2: #0C1C20; --text: #D8F2F5; --text2: #6AAAB8;
+      --accent: #15C0D0; --gold: #15C0D0; --border: rgba(216,242,245,0.1);
+      --card: #0A1820; --nav-bg: rgba(6,15,18,0.92);
+    }
+
+    body { font-family: 'Jost', sans-serif; background: var(--bg); color: var(--text); transition: background 0.4s, color 0.4s; }
+    .site { min-height: 100vh; }
+
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: var(--nav-bg); backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2.5rem; display: flex; align-items: center;
+      justify-content: space-between; height: 68px; transition: background 0.4s;
+    }
+    .nav-brand { display: flex; align-items: center; gap: 0.6rem; cursor: pointer; text-decoration: none; }
+    .nav-logo { height: 52px; width: auto; border-radius: 6px; transition: opacity 0.3s; }
+    .nav-logo:hover { opacity: 0.85; }
+    .nav-links { display: flex; align-items: center; gap: 2.5rem; }
+    .nav-link {
+      font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase;
+      font-weight: 400; color: var(--text2); cursor: pointer;
+      transition: color 0.2s; background: none; border: none;
+      font-family: 'Jost', sans-serif; padding: 0;
+    }
+    .nav-link:hover, .nav-link.active { color: var(--gold); }
+    .nav-link.active { font-weight: 500; }
+
+    .theme-toggle {
+      width: 42px; height: 22px; border-radius: 11px;
+      background: var(--border); border: 1px solid var(--border);
+      cursor: pointer; display: flex; align-items: center; padding: 2px; transition: background 0.3s;
+    }
+    .theme-toggle-thumb { width: 16px; height: 16px; border-radius: 50%; background: var(--gold); transition: transform 0.3s; }
+    .dark .theme-toggle-thumb { transform: translateX(20px); }
+
+    .page { padding-top: 68px; min-height: 100vh; display: none; }
+    .page.active { display: block; }
+
+    /* HOME */
+    .hero { min-height: calc(100vh - 68px); display: grid; grid-template-columns: 1fr 1fr; align-items: center; }
+    .hero-left { padding: 5rem 3rem 5rem 5rem; border-right: 1px solid var(--border); }
+    .hero-tag { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; display: block; }
+    .hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(3rem, 5vw, 5.5rem); font-weight: 300; line-height: 1.1; color: var(--text); margin-bottom: 1.5rem; }
+    .hero-title em { font-style: italic; color: var(--gold); }
+    .hero-desc { font-size: 1rem; color: var(--text2); line-height: 1.8; max-width: 420px; margin-bottom: 2.5rem; font-weight: 300; }
+    .btn-primary {
+      display: inline-block; background: var(--gold); color: #FFFFFF;
+      padding: 0.85rem 2.2rem; font-family: 'Jost', sans-serif; font-size: 0.78rem;
+      letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500;
+      cursor: pointer; border: none; transition: opacity 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.85; }
+    .btn-outline {
+      display: inline-block; background: transparent; color: var(--text);
+      border: 1px solid var(--border); padding: 0.85rem 2.2rem;
+      font-family: 'Jost', sans-serif; font-size: 0.78rem;
+      letter-spacing: 0.12em; text-transform: uppercase; font-weight: 400;
+      cursor: pointer; transition: border-color 0.2s, color 0.2s; margin-left: 1rem;
+    }
+    .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
+    .hero-right { padding: 4rem; display: flex; flex-direction: column; gap: 2rem; }
+    .stat-block { display: flex; flex-direction: column; gap: 0.25rem; }
+    .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 3rem; font-weight: 300; color: var(--text); line-height: 1; }
+    .stat-label { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text2); }
+    .stat-divider { width: 48px; height: 1px; background: var(--gold); margin: 0.25rem 0; }
+    .hero-quote { margin-top: 2rem; padding: 1.5rem; border-left: 2px solid var(--gold); background: var(--bg2); }
+    .hero-quote p { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-style: italic; color: var(--text2); line-height: 1.7; }
+
+    /* SECTION */
+    .section { padding: 5rem; }
+    .section-header { margin-bottom: 3.5rem; }
+    .section-tag { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; display: block; }
+    .section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 3vw, 3rem); font-weight: 300; color: var(--text); line-height: 1.2; }
+    .section-line { width: 48px; height: 1px; background: var(--gold); margin-top: 1rem; }
+
+    /* KARYA */
+    .courses-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; background: var(--border); border: 1px solid var(--border); }
+    .course-card { background: var(--card); padding: 2.5rem 2rem; transition: background 0.3s; cursor: pointer; }
+    .course-card:hover { background: var(--bg2); }
+    .course-level { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+    .course-title { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 400; color: var(--text); margin-bottom: 0.75rem; line-height: 1.3; }
+    .course-desc { font-size: 0.85rem; color: var(--text2); line-height: 1.7; margin-bottom: 1.5rem; }
+    .course-meta { display: flex; gap: 1.5rem; font-size: 0.75rem; color: var(--text2); letter-spacing: 0.05em; }
+    .course-meta span::before { content: '— '; color: var(--gold); }
+
+    /* BLOG */
+    .blog-list { display: flex; flex-direction: column; }
+    .blog-item { display: grid; grid-template-columns: 80px 1fr auto; align-items: start; gap: 2rem; padding: 2rem 0; border-bottom: 1px solid var(--border); cursor: pointer; transition: opacity 0.2s; }
+    .blog-item:hover { opacity: 0.7; }
+    .blog-item:first-child { border-top: 1px solid var(--border); }
+    .blog-num { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; font-weight: 300; color: var(--border); line-height: 1; }
+    .blog-category { font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 0.5rem; display: block; }
+    .blog-title { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: var(--text); margin-bottom: 0.5rem; line-height: 1.3; }
+    .blog-excerpt { font-size: 0.83rem; color: var(--text2); line-height: 1.6; }
+    .blog-date { font-size: 0.75rem; color: var(--text2); white-space: nowrap; padding-top: 0.25rem; }
+
+    /* ABOUT */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+    .about-img-block { aspect-ratio: 3/4; background: var(--bg2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .about-img-inner { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 1rem; }
+    .about-img-label { font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text2); }
+    .about-content { padding-top: 1rem; }
+    .about-name { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 300; color: var(--text); line-height: 1.1; margin-bottom: 0.5rem; }
+    .about-role { font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gold); margin-bottom: 2rem; }
+    .about-bio { font-size: 0.95rem; color: var(--text2); line-height: 1.9; font-weight: 300; margin-bottom: 2.5rem; }
+    .about-skills { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.5rem; }
+    .skill-tag { font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text2); border: 1px solid var(--border); padding: 0.4rem 0.9rem; }
+    .contact-links { display: flex; gap: 1rem; }
+    .contact-link { font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text); border-bottom: 1px solid var(--gold); padding-bottom: 2px; cursor: pointer; text-decoration: none; transition: color 0.2s; background: none; border-top: none; border-left: none; border-right: none; font-family: 'Jost', sans-serif; }
+    .contact-link:hover { color: var(--gold); }
+
+    /* FOOTER */
+    footer { border-top: 1px solid var(--border); padding: 2.5rem 5rem; display: flex; justify-content: space-between; align-items: center; }
+    .footer-text { font-size: 0.78rem; color: var(--text2); }
+    .footer-brand { display: flex; align-items: center; gap: 0.4rem; }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-left { border-right: none; border-bottom: 1px solid var(--border); padding: 3rem 2rem; }
+      .hero-right { padding: 2rem; }
+      .section { padding: 3rem 2rem; }
+      .courses-grid { grid-template-columns: 1fr; }
+      .about-grid { grid-template-columns: 1fr; }
+      .blog-item { grid-template-columns: 1fr; }
+      .blog-num { display: none; }
+      nav { padding: 0 1.5rem; }
+      .nav-links { gap: 1.2rem; }
+      footer { padding: 2rem; flex-direction: column; gap: 1rem; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+<div class="site" id="site">
+
+  <!-- NAV -->
+  <nav>
+    <a class="nav-brand" onclick="navigate('home')">
+      <img src="./logo.jpg" alt="Asep Ridwan Taufiq" class="nav-logo" />
+    </a>
+    <div class="nav-links">
+      <button class="nav-link active" onclick="navigate('home')" data-page="home">Beranda</button>
+      <button class="nav-link" onclick="navigate('karya')" data-page="karya">Karya</button>
+      <button class="nav-link" onclick="navigate('blog')" data-page="blog">Blog</button>
+      <button class="nav-link" onclick="navigate('about')" data-page="about">Tentang</button>
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+        <div class="theme-toggle-thumb"></div>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HOME -->
+  <div class="page active" id="page-home">
+    <div class="hero">
+      <div class="hero-left">
+        <span class="hero-tag">Kajian Fiqih Muamalah</span>
+        <h1 class="hero-title">Memahami<br>Muamalah,<br>Meraih <em>Keberkahan</em></h1>
+        <p class="hero-desc">Ruang berbagi ilmu seputar Fiqih Muamalah — dari akad jual beli, larangan riba, hingga hukum transaksi digital dalam perspektif syariat Islam yang relevan di era modern.</p>
+        <button class="btn-primary" onclick="navigate('karya')">Lihat Karya</button>
+        <button class="btn-outline" onclick="navigate('blog')">Baca Blog</button>
+      </div>
+      <div class="hero-right">
+        <div class="stat-block">
+          <span class="stat-num">6+</span>
+          <div class="stat-divider"></div>
+          <span class="stat-label">Karya Tersedia</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-num">4+</span>
+          <div class="stat-divider"></div>
+          <span class="stat-label">Artikel Blog</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-num">8</span>
+          <div class="stat-divider"></div>
+          <span class="stat-label">Topik Kajian</span>
+        </div>
+        <div class="hero-quote">
+          <p>"وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا — Allah telah menghalalkan jual beli dan mengharamkan riba."</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- KARYA -->
+  <div class="page" id="page-karya">
+    <div class="section">
+      <div class="section-header">
+        <span class="section-tag">Tulisan & Kajian</span>
+        <h2 class="section-title">Karya Fiqih Muamalah</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="courses-grid" id="karya-grid"></div>
+    </div>
+  </div>
+
+  <!-- BLOG -->
+  <div class="page" id="page-blog">
+    <div class="section">
+      <div class="section-header">
+        <span class="section-tag">Kajian & Opini</span>
+        <h2 class="section-title">Artikel Terbaru</h2>
+        <div class="section-line"></div>
+      </div>
+      <div class="blog-list" id="blog-list"></div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <div class="page" id="page-about">
+    <div class="section">
+      <div class="about-grid">
+        <div class="about-img-block">
+          <div class="about-img-inner">
+            <img src="./logo.jpg" alt="Logo Asep Ridwan Taufiq" style="width:60%;border-radius:8px;" />
+            <span class="about-img-label">Foto Profil</span>
+          </div>
+        </div>
+        <div class="about-content">
+          <span class="section-tag">Tentang Saya</span>
+          <h2 class="about-name">Asep Ridwan Taufiq</h2>
+          <div class="about-role">Pengkaji Fiqih Muamalah · Penulis · Pendidik</div>
+          <p class="about-bio">
+            Saya adalah seorang pengkaji yang berdedikasi dalam bidang Fiqih Muamalah —
+            cabang ilmu fiqih yang mengatur hubungan manusia dalam urusan dunia, khususnya
+            transaksi dan perekonomian menurut syariat Islam.
+            <br><br>
+            Melalui platform ini, saya berbagi karya tulis, kajian ilmiah, dan artikel
+            yang membahas hukum-hukum muamalah secara mendalam namun mudah dipahami —
+            dari akad klasik hingga transaksi digital kontemporer.
+          </p>
+          <div class="about-skills" id="skills-list"></div>
+          <div class="contact-links">
+            <button class="contact-link">Email Saya</button>
+            <button class="contact-link">LinkedIn</button>
+            <button class="contact-link">GitHub</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-text">© 2025 Asep Ridwan Taufiq. Dibuat dengan semangat berbagi.</div>
+    <div class="footer-brand">
+      <img src="./logo.jpg" alt="Logo ART" style="height:32px;width:auto;border-radius:4px;" />
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  const karya = [
+    { kategori: "Akad & Transaksi", title: "Panduan Lengkap Akad Jual Beli dalam Islam", desc: "Membahas syarat sah jual beli, rukun akad, dan berbagai bentuk transaksi yang diperbolehkan maupun dilarang dalam syariat Islam.", jenis: "Makalah", tahun: "2024" },
+    { kategori: "Perbankan Syariah", title: "Konsep Mudharabah dan Musyarakah dalam Lembaga Keuangan", desc: "Mengupas akad bagi hasil sebagai alternatif sistem bunga (riba) dalam perbankan modern yang sesuai prinsip syariah.", jenis: "Artikel Ilmiah", tahun: "2024" },
+    { kategori: "Larangan Riba", title: "Riba: Definisi, Jenis, dan Dampaknya dalam Ekonomi Modern", desc: "Analisis mendalam tentang riba fadhl dan riba nasi'ah, beserta contoh nyata penerapannya dalam transaksi sehari-hari.", jenis: "Kajian", tahun: "2023" },
+    { kategori: "Wakaf & Zakat", title: "Optimalisasi Wakaf Produktif di Era Digital", desc: "Pembahasan tentang wakaf uang, wakaf saham, dan pemanfaatan teknologi untuk pengelolaan wakaf yang lebih transparan dan produktif.", jenis: "Makalah", tahun: "2024" },
+    { kategori: "Ijarah", title: "Akad Ijarah: Sewa-Menyewa yang Sesuai Syariat", desc: "Membahas ketentuan sewa dalam Islam, mulai dari ijarah manfaat hingga ijarah muntahiyah bittamlik dalam praktik modern.", jenis: "Artikel Ilmiah", tahun: "2023" },
+    { kategori: "Fintech Syariah", title: "Hukum Investasi di Platform Digital Perspektif Fiqih Muamalah", desc: "Tinjauan hukum Islam terhadap fenomena investasi saham, reksa dana syariah, dan cryptocurrency dalam bingkai muamalah kontemporer.", jenis: "Kajian Kontemporer", tahun: "2025" },
+  ];
+
+  const posts = [
+    { num: "01", category: "Akad", title: "Apakah Transaksi Online Sah Menurut Hukum Islam?", excerpt: "Seiring berkembangnya e-commerce, banyak yang bertanya: bagaimana status hukum akad jual beli yang dilakukan secara daring? Temukan jawabannya.", date: "10 Jan 2025" },
+    { num: "02", category: "Riba", title: "Pinjaman Online (Pinjol): Halal atau Haram?", excerpt: "Menganalisis praktik pinjaman online dari kacamata fiqih muamalah — mana yang termasuk riba dan mana yang sesuai prinsip syariah.", date: "3 Mar 2025" },
+    { num: "03", category: "Zakat & Wakaf", title: "Zakat Saham dan Investasi: Cara Menghitung dan Menunaikannya", excerpt: "Panduan praktis menghitung zakat dari portofolio saham, reksa dana, dan instrumen investasi modern lainnya.", date: "20 Mar 2025" },
+    { num: "04", category: "Muamalah Kontemporer", title: "Hukum Dropshipping dalam Perspektif Fiqih Islam", excerpt: "Dropshipping menjadi model bisnis populer — namun apakah menjual barang yang belum kita miliki sesuai dengan syariat? Simak kajiannya.", date: "5 Apr 2025" },
+  ];
+
+  const skills = ["Fiqih Muamalah", "Ekonomi Islam", "Akad & Kontrak", "Perbankan Syariah", "Zakat & Wakaf", "Hukum Bisnis Islam", "Fikih Kontemporer", "Ushul Fiqih"];
+
+  // Render Karya
+  document.getElementById('karya-grid').innerHTML = karya.map(k => `
+    <div class="course-card">
+      <div class="course-level">${k.kategori}</div>
+      <div class="course-title">${k.title}</div>
+      <div class="course-desc">${k.desc}</div>
+      <div class="course-meta"><span>${k.jenis}</span><span>${k.tahun}</span></div>
+    </div>
+  `).join('');
+
+  // Render Blog
+  document.getElementById('blog-list').innerHTML = posts.map(p => `
+    <div class="blog-item">
+      <div class="blog-num">${p.num}</div>
+      <div>
+        <span class="blog-category">${p.category}</span>
+        <div class="blog-title">${p.title}</div>
+        <div class="blog-excerpt">${p.excerpt}</div>
+      </div>
+      <div class="blog-date">${p.date}</div>
+    </div>
+  `).join('');
+
+  // Render Skills
+  document.getElementById('skills-list').innerHTML = skills.map(s => `<span class="skill-tag">${s}</span>`).join('');
+
+  // Navigation
+  function navigate(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+    document.getElementById('page-' + pageId).classList.add('active');
+    const btn = document.querySelector(`[data-page="${pageId}"]`);
+    if (btn) btn.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Dark mode
+  let isDark = false;
+  function toggleTheme() {
+    isDark = !isDark;
+    document.getElementById('site').className = isDark ? 'site dark' : 'site';
+  }
+</script>
+</body>
+</html>
